@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalProductoComponent } from '../modals/modal-producto/modal-producto.component';
+import { CrearProductoComponent } from '../producto/crear-producto/crear-producto.component';
 // import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -15,8 +15,8 @@ export class ListarProductosComponent implements OnInit {
   ngOnInit(): void {}
 
   openModal() {
-    // const ref = this.modalService.open(ModalProductoComponent, {
-    //   centered: true,
-    // });
+    //  const ref = this.modalService.open(ModalProductoComponent, {
+    //  centered: true,
+    //  });
   }
 }

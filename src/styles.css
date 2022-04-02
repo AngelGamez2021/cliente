@@ -9,10 +9,22 @@ body {
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+
+/* textos */
+
 .titulo {
     font-size: 1.8rem;
     font-family: 'Montserrat', sans-serif;
+    /* tamaño y fuente del titulo */
 }
+
+.text-danger {
+    text-align: start;
+    margin-left: 7px;
+}
+
+
+/* botones */
 
 .fa-solid {
     /* clase boostrap para los botoncitos editar y eliminar */
@@ -30,4 +42,8 @@ body {
 .fa-trash {
     color: red;
     /* color de eliminar */
+}
+
+.btn {
+    margin-left: 7px;
 }
