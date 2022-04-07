@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { ListarProductosComponent } from './components/listar-productos/listar-productos.component';
 import { CrearProductoComponent } from './components/producto/crear-producto/crear-producto.component';
 
+import {HttpClientModule} from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,8 @@ import { CrearProductoComponent } from './components/producto/crear-producto/cre
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    HttpClientModule,
 
 
   ],

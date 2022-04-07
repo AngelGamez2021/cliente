@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Producto } from 'src/app/interface/interface.producto';
+import { ProductoService } from '../../../services/producto.service';
 
 @Component({
   selector: 'app-modal-producto',
@@ -12,31 +13,15 @@ import { Producto } from 'src/app/interface/interface.producto';
 export class CrearProductoComponent implements OnInit {
 
   formProducto!: FormGroup;
-
-  // messageError = {
-  //   producto: {
-  //     required: 'Producto requerido',
-  //     minLength: 'Producto invalido',
-  //   },
-  //   categoria: {
-  //     required: 'Categoria requerida',
-  //     minLength: 'Categoria invalida',
-  //   },
-  //   uicacion: {
-  //     required: 'Ubicacion requerida',
-  //     minLength: 'Ubicacion invalida',
-  //   },
-  //   precio: {
-  //     required: 'Precio requerido',
-  //     minLength: 'Precio Invalido',
-
-  //   },
-  //  };
+  titulo = 'Crear Producto';
+  id: string | null;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,  
     private router: Router,
-    private toastr: ToastrService) { 
+    private toastr: ToastrService,
+    private _productoService: ProductoService,
+    private aRouter: ActivatedRoute ) { 
   
   this.formProducto = this.formBuilder.group({
 
@@ -45,14 +30,14 @@ export class CrearProductoComponent implements OnInit {
     ubicacion: ['', [Validators.required, Validators.minLength(4)]],
     precio: ['', [Validators.required, Validators.minLength(4)]],
 
-  });
+  })
+
+  this.id = this.aRouter.snapshot.paramMap.get('id');
 
   }
   ngOnInit(): void {
-
-    
+    this.esEditar();
   }
-
 
   onSubmit(){
 
@@ -66,10 +51,36 @@ export class CrearProductoComponent implements OnInit {
 
     }
 
-    this.toastr.success('El producto fue registrado con exito!', 'Producto Registrado');
-    this.router.navigate(['/']);
 
-          }
-  
+    this._productoService.crearProducto(PRODCUTO).subscribe(data => {
+      this.toastr.success('El producto fue registrado con exito!', 'Producto Registrado');
+      this.router.navigate(['/']);
+    }, error => {
+      console.log(error);
+      
+    })
+
+        
+}
+
+esEditar(){
+  if(this.id !== null){
+
+    this.titulo = 'Editar producto';
+    this._productoService.editarProducto(this.id).subscribe(data => {
+      this.formProducto.setValue({
+
+        producto: data.nombre,
+        categoria: data.categoria,
+        ubicacion: data.ubicacion,
+        precio: data.precio,
+
+      })
+    })
+
+  }
+}
+
+
 
 }
